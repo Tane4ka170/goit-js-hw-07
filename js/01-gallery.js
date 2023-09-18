@@ -22,8 +22,6 @@ function createGalleryItemMarkup(galleryItems){
     }).join('');
 };
 
-gallery.addEventListener("click", onGalleryClick)
-
 function onGalleryClick(event) {
     event.preventDefault();
     if (event.target.nodeName !== 'IMG') {
@@ -39,4 +37,14 @@ function onGalleryClick(event) {
     <img src="${hrefImageOriginal}">
     `);
     instance.show();
+    
+    const closeWithKey = (event => {
+      if (event.code === 'Escape') {
+          instance.close();
+          window.removeEventListener('keydown', closeWithKey );
+      }
+  })
+  window.addEventListener('keydown', closeWithKey );
 }
+
+gallery.addEventListener("click", onGalleryClick)
